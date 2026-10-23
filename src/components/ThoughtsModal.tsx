@@ -8,27 +8,33 @@ export const ThoughtsModal: React.FC = () => {
   const [selectedArticle, setSelectedArticle] = useState(THOUGHT_ARTICLES[0]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/50 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden">
+    <div
+      onClick={closeModal}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden cursor-default"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b-3 border-ink bg-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-retro-purple border-2 border-ink flex items-center justify-center text-white font-mono font-black shadow-comic-sm">
+            <div className="w-10 h-10 rounded-2xl bg-purple-500 border-2 border-ink flex items-center justify-center text-white font-mono font-black shadow-comic-sm">
               04
             </div>
             <div>
               <h2 className="text-xl sm:text-2xl font-black text-ink">
-                Thoughts & Case Studies
+                Engineering Log & Case Studies
               </h2>
               <p className="text-xs text-ink-soft font-mono">
-                Essays on CSS architecture, design constraints & spatial interfaces
+                Low-level Android systems, RTMP socket architectures & audio DSP notes
               </p>
             </div>
           </div>
 
           <button
             onClick={closeModal}
-            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm"
+            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -39,7 +45,7 @@ export const ThoughtsModal: React.FC = () => {
           {/* Article Index (Left) */}
           <div className="md:col-span-5 space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-ink-faint tracking-wider mb-2">
-              Studio Notebook
+              Studio Engineering Log
             </h3>
             {THOUGHT_ARTICLES.map((article) => {
               const isSelected = selectedArticle.id === article.id;
@@ -47,7 +53,7 @@ export const ThoughtsModal: React.FC = () => {
                 <button
                   key={article.id}
                   onClick={() => setSelectedArticle(article)}
-                  className={`w-full text-left p-4 rounded-2xl border-3 border-ink transition-all ${
+                  className={`w-full text-left p-4 rounded-2xl border-3 border-ink transition-all cursor-pointer ${
                     isSelected
                       ? 'bg-cheese shadow-comic-lg translate-x-1'
                       : 'bg-white hover:bg-paper-dark shadow-comic-sm'
@@ -74,7 +80,7 @@ export const ThoughtsModal: React.FC = () => {
           <div className="md:col-span-7 bg-white border-3 border-ink rounded-3xl p-6 shadow-comic flex flex-col justify-between overflow-y-auto">
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="text-xs font-mono font-bold text-hoodie">
+                <span className="text-xs font-mono font-bold text-sky-600">
                   {selectedArticle.date}
                 </span>
                 <span className="text-xs font-mono text-ink-faint">•</span>
@@ -93,7 +99,7 @@ export const ThoughtsModal: React.FC = () => {
                     key={tag}
                     className="flex items-center gap-1 px-2.5 py-0.5 rounded-full border border-ink bg-paper text-[10px] font-mono font-bold text-ink"
                   >
-                    <Tag className="w-2.5 h-2.5 text-hoodie" /> {tag}
+                    <Tag className="w-2.5 h-2.5 text-sky-600" /> {tag}
                   </span>
                 ))}
               </div>
@@ -104,8 +110,8 @@ export const ThoughtsModal: React.FC = () => {
             </div>
 
             <div className="mt-8 pt-4 border-t-2 border-ink/10 flex items-center justify-between text-xs font-mono text-ink-faint">
-              <span>Chalkboard Special Edition</span>
-              <span>Case Study Archive</span>
+              <span>Chalkboard Specials</span>
+              <span>Benhin Engineering Notes</span>
             </div>
           </div>
         </div>

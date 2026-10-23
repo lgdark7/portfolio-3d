@@ -1,10 +1,10 @@
 export type SpatialStationId =
-  | 'hub'         // 0: Full studio overview & avatar
-  | 'web'         // 1: Workstation monitor & dev projects
-  | 'art'         // 2: Art wall, frames & CSS drawings
-  | 'about'       // 3: Filing cabinet, stickers & skills
-  | 'thoughts'    // 4: Bookshelf, chalkboard & notes
-  | 'archive';    // 5: Pinboard, contact terminal & connect
+  | 'hub'         // 0: Full studio overview, avatar & command center
+  | 'web'         // 1: Workstation monitor & native systems/projects
+  | 'art'         // 2: Protocol architecture, schematics & visual lab
+  | 'about'       // 3: Filing cabinet, technical arsenal & credentials
+  | 'thoughts'    // 4: Technical deep-dives & architecture notes
+  | 'archive';    // 5: Community, Discord, guns.lol & connect terminal
 
 export interface SpatialStation {
   id: SpatialStationId;
@@ -19,7 +19,7 @@ export interface SpatialStation {
 export interface WebProject {
   id: string;
   title: string;
-  category: 'webgl' | 'frontend' | 'css-art' | 'fullstack';
+  category: 'android' | 'multimedia' | 'protocols' | 'webgl' | 'all';
   description: string;
   impact: string;
   tags: string[];
@@ -27,7 +27,8 @@ export interface WebProject {
   githubUrl: string;
   featured: boolean;
   accentColor: string;
-  previewType: 'single-div' | 'terminal' | 'interactive' | 'visual';
+  stats?: string;
+  previewType: 'terminal' | 'interactive' | 'visual' | 'code';
 }
 
 export interface ArtPiece {
@@ -37,7 +38,7 @@ export interface ArtPiece {
   year: string;
   description: string;
   quote?: string;
-  cssHighlights?: string[];
+  codeHighlights?: string[];
   color: string;
 }
 

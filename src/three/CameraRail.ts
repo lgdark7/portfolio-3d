@@ -48,10 +48,10 @@ export class CameraRail {
         position: new THREE.Vector3(-0.8, 2.4, 1.2),
         target: new THREE.Vector3(2.0, 4.2, -3.8)
       },
-      // 5: Archive & Connect (Cinematic wide perspective)
+      // 5: Connect Terminal & Distribution (Focus on bulletin pinboard & distribution channels)
       {
-        position: new THREE.Vector3(0.0, 2.2, 5.8),
-        target: new THREE.Vector3(0.0, 1.4, -1.0)
+        position: new THREE.Vector3(-3.2, 3.4, 0.4),
+        target: new THREE.Vector3(-4.5, 3.6, -3.85)
       }
     ];
 

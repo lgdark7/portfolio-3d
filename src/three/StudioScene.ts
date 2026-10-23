@@ -109,6 +109,7 @@ export class StudioScene {
 
     const interactiveList = [
       ...this.room.interactiveObjects,
+      ...this.avatar.interactiveObjects,
       ...this.compass.interactiveObjects
     ];
 
@@ -139,6 +140,7 @@ export class StudioScene {
 
     const interactiveList = [
       ...this.room.interactiveObjects,
+      ...this.avatar.interactiveObjects,
       ...this.compass.interactiveObjects
     ];
 
@@ -156,14 +158,24 @@ export class StudioScene {
 
         if (id === 'lamp-toggle') {
           store.toggleLightingMode();
+        } else if (id === 'hub') {
+          soundFX.playUiBlip(720);
+          store.openModal('hub');
         } else if (id === 'web') {
+          soundFX.playUiBlip(600);
           store.openModal('web');
         } else if (id === 'art') {
+          soundFX.playUiBlip(640);
           store.openModal('art');
         } else if (id === 'about') {
+          soundFX.playDrawerSlide();
           store.openModal('about');
         } else if (id === 'thoughts') {
+          soundFX.playUiBlip(560);
           store.openModal('thoughts');
+        } else if (id === 'archive') {
+          soundFX.playUiBlip(680);
+          store.openModal('archive');
         } else if (id === 'cat') {
           soundFX.playCatPurr();
           this.room.drawMonitorScreen('PURRR! ^._.^', 'You petted the studio cat!');
@@ -172,6 +184,7 @@ export class StudioScene {
           this.room.drawMonitorScreen('HOT COFFEE ☕', 'Pour-over freshly brewed.');
         } else if (typeof topHit.userData.stationIndex === 'number') {
           // Direct compass node navigation
+          soundFX.playCameraWhoosh();
           store.setScrollProgress(topHit.userData.stationIndex);
         }
       }

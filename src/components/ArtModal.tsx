@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
 import { ART_PIECES } from '../data/portfolioData';
-import { X, Palette, Eye, Code2 } from 'lucide-react';
+import { X, Palette, Eye, Code2, Terminal, Shield } from 'lucide-react';
 
 export const ArtModal: React.FC = () => {
   const { closeModal } = usePortfolioStore();
   const [activeArt, setActiveArt] = useState(ART_PIECES[0]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/50 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden">
+    <div
+      onClick={closeModal}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden cursor-default"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b-3 border-ink bg-white">
           <div className="flex items-center gap-3">
@@ -18,17 +24,17 @@ export const ArtModal: React.FC = () => {
             </div>
             <div>
               <h2 className="text-xl sm:text-2xl font-black text-ink">
-                Art & Creative Lab
+                Protocol & Visual Architecture Lab
               </h2>
               <p className="text-xs text-ink-soft font-mono">
-                Single-div CSS art, framed homages & graphic experiments
+                Socket schematics, low-level DSP diagrams & engineering creeds
               </p>
             </div>
           </div>
 
           <button
             onClick={closeModal}
-            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm"
+            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -39,7 +45,7 @@ export const ArtModal: React.FC = () => {
           {/* List of Artworks (Left column) */}
           <div className="md:col-span-5 space-y-3">
             <h3 className="text-xs font-mono font-bold uppercase text-ink-faint tracking-wider mb-2">
-              Studio Wall Frames & Props
+              Studio Wall Frames & Schematics
             </h3>
             {ART_PIECES.map((piece) => {
               const isSelected = activeArt.id === piece.id;
@@ -47,7 +53,7 @@ export const ArtModal: React.FC = () => {
                 <button
                   key={piece.id}
                   onClick={() => setActiveArt(piece)}
-                  className={`w-full text-left p-4 rounded-2xl border-3 border-ink transition-all ${
+                  className={`w-full text-left p-4 rounded-2xl border-3 border-ink transition-all cursor-pointer ${
                     isSelected
                       ? 'bg-cheese shadow-comic-lg translate-x-1'
                       : 'bg-white hover:bg-paper-dark shadow-comic-sm'
@@ -69,8 +75,8 @@ export const ArtModal: React.FC = () => {
           <div className="md:col-span-7 bg-white border-3 border-ink rounded-3xl p-6 shadow-comic flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Palette className="w-4 h-4 text-hoodie" />
-                <span className="text-xs font-mono font-bold text-hoodie uppercase">
+                <Palette className="w-4 h-4 text-sky-600" />
+                <span className="text-xs font-mono font-bold text-sky-600 uppercase">
                   {activeArt.medium}
                 </span>
               </div>
@@ -84,33 +90,35 @@ export const ArtModal: React.FC = () => {
 
               {/* Visual Comic Frame Preview */}
               <div
-                className="w-full h-48 rounded-2xl border-4 border-ink p-6 flex flex-col items-center justify-center text-center shadow-comic-inner relative overflow-hidden"
-                style={{ backgroundColor: activeArt.color + '20' }}
+                className="w-full h-48 rounded-2xl border-4 border-ink p-6 flex flex-col items-center justify-center text-center shadow-comic-inner relative overflow-hidden bg-slate-950 text-white"
               >
-                <div className="absolute top-2 left-2 text-[10px] font-mono font-bold px-2 py-0.5 bg-white border border-ink rounded">
-                  WALL FRAME
+                <div className="absolute top-2 left-2 text-[10px] font-mono font-bold px-2 py-0.5 bg-ink border border-slate-700 text-sky-400 rounded">
+                  STUDIO FRAME
                 </div>
 
                 {activeArt.quote ? (
-                  <blockquote className="font-mono font-extrabold text-lg sm:text-xl text-ink max-w-xs">
+                  <blockquote className="font-mono font-bold text-sm sm:text-base text-slate-100 max-w-sm leading-snug">
                     "{activeArt.quote}"
                   </blockquote>
                 ) : (
-                  <div className="font-mono text-3xl font-black text-ink">
-                    &lt;div&gt;&lt;/div&gt;
+                  <div className="font-mono text-xl font-black text-sky-400">
+                    &lt;RTMP_SOCKET_FRAME /&gt;
                   </div>
                 )}
               </div>
 
-              {activeArt.cssHighlights && (
+              {activeArt.codeHighlights && (
                 <div className="mt-6">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold text-ink mb-2">
-                    <Code2 className="w-4 h-4 text-retro-blue" />
-                    <span>Single Div CSS Secrets</span>
+                    <Code2 className="w-4 h-4 text-sky-600" />
+                    <span>Low-Level Execution Pipeline</span>
                   </div>
-                  <div className="bg-ink text-mint font-mono text-xs p-4 rounded-xl border-2 border-ink space-y-1">
-                    {activeArt.cssHighlights.map((line, idx) => (
-                      <div key={idx}>{line}</div>
+                  <div className="bg-ink text-sky-300 font-mono text-xs p-4 rounded-xl border-2 border-ink space-y-1">
+                    {activeArt.codeHighlights.map((line, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <span className="text-slate-600 select-none">&gt;</span>
+                        <span>{line}</span>
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -118,8 +126,8 @@ export const ArtModal: React.FC = () => {
             </div>
 
             <div className="mt-6 pt-4 border-t-2 border-ink/10 flex items-center justify-between text-xs font-mono text-ink-faint">
-              <span>Interactive 3D Art Studio</span>
-              <span>Inspired by Lynn Fisher</span>
+              <span>Interactive 3D Studio</span>
+              <span>Benhin Architecture</span>
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ export class Avatar3D {
   public group: THREE.Group;
   public headGroup: THREE.Group;
   public bodyGroup: THREE.Group;
+  public interactiveObjects: THREE.Object3D[] = [];
   private leftArm: THREE.Group;
   private rightArm: THREE.Group;
 
@@ -207,6 +208,19 @@ export class Avatar3D {
     this.headGroup.add(smileLine);
 
     this.group.add(this.headGroup);
+
+    // 5. Interactive Raycast Hitbox for Avatar
+    const avatarHitGeo = new THREE.CylinderGeometry(0.55, 0.65, 2.3, 12);
+    const avatarHit = new THREE.Mesh(avatarHitGeo, new THREE.MeshBasicMaterial({ visible: false }));
+    avatarHit.position.set(0, 1.15, 0);
+    avatarHit.name = 'target-avatar';
+    avatarHit.userData = {
+      interactive: true,
+      id: 'hub',
+      label: 'Inspect Benhin (@lgdark7) Studio Hub & Creed'
+    };
+    this.group.add(avatarHit);
+    this.interactiveObjects.push(avatarHit);
   }
 
   /**

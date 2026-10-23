@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
-import { WEB_PROJECTS } from '../data/portfolioData';
-import { X, ExternalLink, Sparkles, Filter } from 'lucide-react';
+import { WEB_PROJECTS, BENHIN_PROFILE } from '../data/portfolioData';
+import { X, ExternalLink, Sparkles, Filter, Terminal, Shield } from 'lucide-react';
 
 export const WebProjectsModal: React.FC = () => {
   const { closeModal } = usePortfolioStore();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
   const categories = [
-    { id: 'all', label: 'All Projects' },
-    { id: 'css-art', label: 'CSS Art' },
-    { id: 'frontend', label: 'Frontend' },
-    { id: 'fullstack', label: 'Fullstack' },
-    { id: 'webgl', label: '3D & WebGL' }
+    { id: 'all', label: 'All Systems' },
+    { id: 'android', label: 'Android & RTMP' },
+    { id: 'multimedia', label: 'Audio & DSP' },
+    { id: 'protocols', label: 'Protocols & OTA' },
+    { id: 'webgl', label: '3D & Spatial' }
   ];
 
   const filtered = selectedCategory === 'all'
@@ -20,27 +20,35 @@ export const WebProjectsModal: React.FC = () => {
     : WEB_PROJECTS.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/50 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden">
+    <div
+      onClick={closeModal}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden cursor-default"
+      >
         {/* Header Bar */}
         <div className="flex items-center justify-between p-6 border-b-3 border-ink bg-white">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-retro-blue border-2 border-ink flex items-center justify-center text-white font-mono font-black shadow-comic-sm">
+            <div className="w-10 h-10 rounded-2xl bg-sky-500 border-2 border-ink flex items-center justify-center text-white font-mono font-black shadow-comic-sm">
               01
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-ink">
-                Web Engineering & Design
-              </h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-xl sm:text-2xl font-black text-ink">
+                  Systems Architecture & Repositories
+                </h2>
+              </div>
               <p className="text-xs text-ink-soft font-mono">
-                Interactive web apps, creative code & experiments
+                Native Android, RTMP engines, audio DSP pipelines & open-source software
               </p>
             </div>
           </div>
 
           <button
             onClick={closeModal}
-            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm"
+            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer"
             title="Close Drawer (Esc)"
           >
             <X className="w-5 h-5" />
@@ -54,7 +62,7 @@ export const WebProjectsModal: React.FC = () => {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1 rounded-xl text-xs font-mono font-bold border-2 border-ink transition-all flex-shrink-0 ${
+              className={`px-3 py-1 rounded-xl text-xs font-mono font-bold border-2 border-ink transition-all flex-shrink-0 cursor-pointer ${
                 selectedCategory === cat.id
                   ? 'bg-ink text-white shadow-comic-sm'
                   : 'bg-white text-ink hover:bg-cheese'
@@ -82,7 +90,7 @@ export const WebProjectsModal: React.FC = () => {
                       {project.category.toUpperCase()}
                     </span>
                     {project.featured && (
-                      <span className="flex items-center gap-1 text-[11px] font-mono font-bold text-hoodie">
+                      <span className="flex items-center gap-1 text-[11px] font-mono font-bold text-sky-600">
                         <Sparkles className="w-3 h-3" /> FEATURED
                       </span>
                     )}
@@ -94,6 +102,15 @@ export const WebProjectsModal: React.FC = () => {
                   <p className="text-xs text-ink-soft leading-relaxed mb-3">
                     {project.description}
                   </p>
+
+                  {project.stats && (
+                    <div className="bg-sky-50 border border-sky-300 rounded-xl px-3 py-1.5 mb-3 flex items-center gap-2">
+                      <Terminal className="w-3.5 h-3.5 text-sky-600" />
+                      <span className="text-[11px] font-mono font-bold text-sky-900">
+                        {project.stats}
+                      </span>
+                    </div>
+                  )}
 
                   <div className="bg-paper-dark/60 rounded-xl p-3 border border-ink/20 mb-4">
                     <p className="text-[11px] font-mono text-ink italic">
@@ -121,7 +138,7 @@ export const WebProjectsModal: React.FC = () => {
                       rel="noopener noreferrer"
                       className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border-2 border-ink bg-cheese hover:bg-cheese-dark text-ink font-mono font-bold text-xs shadow-comic-sm transition-transform active:translate-y-0.5"
                     >
-                      <span>Visit Site</span>
+                      <span>Explore Repository</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}
@@ -131,7 +148,7 @@ export const WebProjectsModal: React.FC = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center p-2 rounded-xl border-2 border-ink bg-paper hover:bg-paper-dark text-ink font-mono font-bold text-xs shadow-comic-sm"
-                      title="View GitHub Source"
+                      title="View GitHub Repository"
                     >
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
@@ -146,7 +163,7 @@ export const WebProjectsModal: React.FC = () => {
 
         {/* Footer */}
         <div className="p-4 bg-paper-dark border-t-3 border-ink flex items-center justify-between text-xs font-mono text-ink-soft">
-          <span>{filtered.length} projects loaded</span>
+          <span>{filtered.length} systems loaded</span>
           <span>Tip: Click monitor screen in 3D to reopen</span>
         </div>
       </div>

@@ -22,7 +22,7 @@ export class StudioRoom {
     this.monitorCanvas.width = 512;
     this.monitorCanvas.height = 320;
     this.monitorTexture = new THREE.CanvasTexture(this.monitorCanvas);
-    this.drawMonitorScreen('HELLO', 'Lynn Fisher 2018 Studio');
+    this.drawMonitorScreen('FAIRY LIVE', 'KALI LINUX • RTMP ENGINE • KOTLIN');
 
     // Create articulated desk lamp spot light
     this.lampLight = new THREE.SpotLight(0xffd166, 0, 12, Math.PI / 4, 0.4, 1.2);
@@ -43,6 +43,7 @@ export class StudioRoom {
     this.buildWorkstationDesk();
     this.buildFilingCabinet();
     this.buildArtGalleryAndShelves();
+    this.buildPinboardAndLounge();
     this.buildStudioCat();
     this.buildSteamingCoffeeMug();
   }
@@ -265,7 +266,7 @@ export class StudioRoom {
     screenMesh.userData = {
       interactive: true,
       id: 'web',
-      label: 'Inspect Web Projects'
+      label: 'Inspect Systems & Repos (Fairy Live, Fairy Music)'
     };
     monitorGroup.add(screenMesh);
     this.interactiveObjects.push(screenMesh);
@@ -399,18 +400,18 @@ export class StudioRoom {
       cabinetGroup.add(drawerGroup);
     }
 
-    // Top Drawer Sticker: "CSS IS AWESOME" badge
-    const sticker1 = this.createSticker('CSS IS\nAWESOME', PALETTE.mint, 0.32, 0.22);
+    // Top Drawer Sticker: "KALI LINUX" badge
+    const sticker1 = this.createSticker('KALI\nLINUX', PALETTE.ink, 0.32, 0.22);
     sticker1.position.set(0.35, 0.32 + 3 * 0.58, 0.07);
     cabinetGroup.add(sticker1);
 
-    // Drawer Sticker: JS Heart
-    const sticker2 = this.createSticker('♡ JS ♡', PALETTE.cheese, 0.26, 0.16);
+    // Drawer Sticker: Kotlin 120 FPS
+    const sticker2 = this.createSticker('KOTLIN\n120FPS', PALETTE.cheese, 0.28, 0.16);
     sticker2.position.set(-0.35, 0.32 + 2 * 0.58, 0.07);
     cabinetGroup.add(sticker2);
 
-    // Drawer Sticker: Single Div
-    const sticker3 = this.createSticker('<div>', PALETTE.hoodie, 0.24, 0.14);
+    // Drawer Sticker: MediaCodec
+    const sticker3 = this.createSticker('MEDIA\nCODEC', PALETTE.hoodie, 0.28, 0.14);
     sticker3.position.set(0.3, 0.32 + 1 * 0.58, 0.07);
     cabinetGroup.add(sticker3);
 
@@ -422,7 +423,7 @@ export class StudioRoom {
     hitBox.userData = {
       interactive: true,
       id: 'about',
-      label: 'Open Filing Cabinet (About & Skills)'
+      label: 'Open Filing Cabinet (Arsenal, Rig & Bio)'
     };
     cabinetGroup.add(hitBox);
     this.interactiveObjects.push(hitBox);
@@ -456,23 +457,96 @@ export class StudioRoom {
     ctx.strokeStyle = '#14303f';
     ctx.strokeRect(0, 0, 128, 96);
 
+    const lines = text.split('\n');
     ctx.fillStyle = '#14303f';
-    ctx.font = 'bold 20px "Space Mono", monospace';
+    ctx.font = lines.length > 2 ? 'bold 16px "Space Mono", monospace' : 'bold 20px "Space Mono", monospace';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    const lines = text.split('\n');
-    if (lines.length === 1) {
-      ctx.fillText(lines[0], 64, 48);
-    } else {
-      ctx.fillText(lines[0], 64, 34);
-      ctx.fillText(lines[1], 64, 62);
-    }
+    const startY = 48 - ((lines.length - 1) * (lines.length > 2 ? 18 : 26)) / 2;
+    lines.forEach((line, idx) => {
+      ctx.fillText(line, 64, startY + idx * (lines.length > 2 ? 18 : 26));
+    });
 
     const texture = new THREE.CanvasTexture(canvas);
     const geo = new THREE.PlaneGeometry(w, h);
     const mat = new THREE.MeshBasicMaterial({ map: texture });
     return new THREE.Mesh(geo, mat);
+  }
+
+  /**
+   * 6. Connect Terminal & Distribution Pinboard (Station 05 Target)
+   */
+  private buildPinboardAndLounge() {
+    const pinboardGroup = new THREE.Group();
+    pinboardGroup.position.set(-4.5, 3.6, -3.85);
+    pinboardGroup.name = 'connect-pinboard';
+
+    // Wooden Frame
+    const frameGeo = new THREE.BoxGeometry(2.8, 2.0, 0.08);
+    const frame = createCartoonMesh(frameGeo, PALETTE.wood, 0.02);
+    pinboardGroup.add(frame);
+    pinboardGroup.add(createLineEdges(frameGeo, 30, PALETTE.ink));
+
+    // Cork Board Interior
+    const corkGeo = new THREE.BoxGeometry(2.6, 1.8, 0.04);
+    const corkMat = new THREE.MeshToonMaterial({ color: 0xcca677, gradientMap: toonGradient });
+    const cork = new THREE.Mesh(corkGeo, corkMat);
+    cork.position.set(0, 0, 0.03);
+    pinboardGroup.add(cork);
+
+    // Note 1: Discord Guild
+    const discordNote = this.createSticker('DISCORD\nGUILD\nJOIN ↗', 0x5865f2, 0.75, 0.65);
+    discordNote.position.set(-0.7, 0.35, 0.06);
+    discordNote.rotation.z = -0.05;
+    pinboardGroup.add(discordNote);
+
+    // Note 2: Guns.lol
+    const gunsNote = this.createSticker('GUNS.LOL\n/lg_dark\nVISIT ↗', 0xf43f5e, 0.7, 0.55);
+    gunsNote.position.set(0.65, 0.4, 0.06);
+    gunsNote.rotation.z = 0.04;
+    pinboardGroup.add(gunsNote);
+
+    // Note 3: Fairy Live v1.2.0 Release
+    const liveNote = this.createSticker('FAIRY LIVE\nv1.2.0\n<15MB APK', PALETTE.mint, 0.85, 0.55);
+    liveNote.position.set(-0.6, -0.4, 0.06);
+    liveNote.rotation.z = 0.03;
+    pinboardGroup.add(liveNote);
+
+    // Note 4: Guestbook Packet Memo
+    const memoNote = this.createSticker('GUESTBOOK\nTERMINAL\n[OPEN]', PALETTE.cheese, 0.75, 0.55);
+    memoNote.position.set(0.65, -0.4, 0.06);
+    memoNote.rotation.z = -0.03;
+    pinboardGroup.add(memoNote);
+
+    // Pushpins on corners
+    const pinColors = [0xef4444, 0x3b82f6, 0x10b981, 0xf59e0b];
+    const pinPositions = [
+      [-0.7, 0.65], [0.65, 0.65], [-0.6, -0.15], [0.65, -0.15]
+    ];
+    pinPositions.forEach(([px, py], idx) => {
+      const pin = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 8, 8),
+        new THREE.MeshBasicMaterial({ color: pinColors[idx % pinColors.length] })
+      );
+      pin.position.set(px, py, 0.1);
+      pinboardGroup.add(pin);
+    });
+
+    // Interactive Hitbox for the Pinboard (Click to open Connect & Releases modal)
+    const hitBoxGeo = new THREE.BoxGeometry(2.9, 2.1, 0.3);
+    const hitBox = new THREE.Mesh(hitBoxGeo, new THREE.MeshBasicMaterial({ visible: false }));
+    hitBox.position.set(0, 0, 0.1);
+    hitBox.name = 'target-pinboard';
+    hitBox.userData = {
+      interactive: true,
+      id: 'archive',
+      label: 'Open Connect Terminal & Distribution'
+    };
+    pinboardGroup.add(hitBox);
+    this.interactiveObjects.push(hitBox);
+
+    this.group.add(pinboardGroup);
   }
 
   /**
@@ -482,26 +556,26 @@ export class StudioRoom {
     const galleryGroup = new THREE.Group();
     galleryGroup.name = 'art-gallery';
 
-    // Hanging Frame 1: Tina Quote ("Strong, sensual woman.")
-    const frame1 = this.createFramedArt('strong,\nsensual\nwoman.', 0xffffff, 1.1, 1.4);
+    // Hanging Frame 1: Benhin Creed ("Never play it safe..")
+    const frame1 = this.createFramedArt('Never play\nit safe..\n\nCold Logic,\nPure Execution.', 0xffffff, 1.2, 1.4);
     frame1.position.set(1.2, 5.2, -3.85);
     frame1.name = 'target-art-frame1';
     frame1.userData = {
       interactive: true,
       id: 'art',
-      label: 'View Art & Creative Lab'
+      label: 'View Protocol & Visual Lab'
     };
     galleryGroup.add(frame1);
     this.interactiveObjects.push(frame1);
 
-    // Hanging Frame 2: "Vincent Van Goat Cheese Burger $5.95"
-    const frame2 = this.createFramedArt('Vincent Van Goat\nCheese BURGER\n\n$5.95', 0xffffff, 1.3, 1.1);
+    // Hanging Frame 2: "FAIRY LIVE RTMP CORE"
+    const frame2 = this.createFramedArt('FAIRY LIVE\nRTMP CORE\n\n<15MB APK', 0xffffff, 1.3, 1.1);
     frame2.position.set(3.0, 5.4, -3.85);
     frame2.name = 'target-art-frame2';
     frame2.userData = {
       interactive: true,
       id: 'thoughts',
-      label: 'Read Burger of the Day & Thoughts'
+      label: 'Read Engineering Log & Case Studies'
     };
     galleryGroup.add(frame2);
     this.interactiveObjects.push(frame2);
@@ -751,10 +825,10 @@ export class StudioRoom {
    */
   public drawMonitorScreen(headline: string, subline: string) {
     const ctx = this.monitorCanvas.getContext('2d')!;
-    ctx.fillStyle = '#0f172a';
+    ctx.fillStyle = '#0a0f1d';
     ctx.fillRect(0, 0, 512, 320);
 
-    // Window bar
+    // Window bar (Kali Linux terminal header)
     ctx.fillStyle = '#1e293b';
     ctx.fillRect(0, 0, 512, 40);
     ctx.fillStyle = '#ef4444';
@@ -770,19 +844,25 @@ export class StudioRoom {
     ctx.arc(64, 20, 6, 0, Math.PI * 2);
     ctx.fill();
 
-    // Main Greeting / Code
-    ctx.fillStyle = '#06d6a0';
-    ctx.font = 'bold 54px "Space Mono", monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText(headline, 256, 150);
-
+    // Terminal title prompt
     ctx.fillStyle = '#94a3b8';
-    ctx.font = '22px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(subline, 256, 200);
+    ctx.font = 'bold 13px "Space Mono", monospace';
+    ctx.textAlign = 'left';
+    ctx.fillText('kali@benhin-workstation: ~/fairy-live', 84, 25);
 
-    ctx.fillStyle = '#ffd166';
+    // Main Greeting / Code
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = 'bold 44px "Space Mono", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(headline, 256, 145);
+
+    ctx.fillStyle = '#cbd5e1';
     ctx.font = '16px "Space Mono", monospace';
-    ctx.fillText('> Click to open Web Projects drawer', 256, 260);
+    ctx.fillText(subline, 256, 195);
+
+    ctx.fillStyle = '#34d399';
+    ctx.font = '14px "Space Mono", monospace';
+    ctx.fillText('> Click to open Systems & Repos drawer', 256, 255);
 
     this.monitorTexture.needsUpdate = true;
   }

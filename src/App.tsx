@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { CanvasContainer } from './components/CanvasContainer';
 import { SpatialHUD } from './components/SpatialHUD';
+import { HubOverviewModal } from './components/HubOverviewModal';
 import { WebProjectsModal } from './components/WebProjectsModal';
 import { ArtModal } from './components/ArtModal';
 import { AboutModal } from './components/AboutModal';
@@ -58,6 +59,7 @@ export const App: React.FC = () => {
       <SpatialHUD />
 
       {/* 3. Interactive Modals & Drawers */}
+      {activeModal === 'hub' && <HubOverviewModal />}
       {activeModal === 'web' && <WebProjectsModal />}
       {activeModal === 'art' && <ArtModal />}
       {activeModal === 'about' && <AboutModal />}

@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { usePortfolioStore } from '../store/usePortfolioStore';
-import { SKILL_CATEGORIES, STUDIO_EQUIPMENT } from '../data/portfolioData';
+import { SKILL_CATEGORIES, STUDIO_EQUIPMENT, BENHIN_PROFILE } from '../data/portfolioData';
 import { soundFX } from '../audio/soundFX';
-import { X, Folder, Cpu, Sparkles, Monitor, Award, Heart } from 'lucide-react';
+import { X, Cpu, Monitor, Award, Heart, Terminal, Shield, ExternalLink } from 'lucide-react';
 
 export const AboutModal: React.FC = () => {
   const { closeModal } = usePortfolioStore();
   const [activeDrawer, setActiveDrawer] = useState<number>(0);
 
   const drawers = [
-    { id: 0, label: 'Drawer 1: Tech Stack', icon: Cpu, badge: 'SKILLS' },
-    { id: 1, label: 'Drawer 2: Studio Gear', icon: Monitor, badge: 'GEAR' },
-    { id: 2, label: 'Drawer 3: Biography', icon: Heart, badge: 'BIO' },
-    { id: 3, label: 'Drawer 4: Credentials', icon: Award, badge: 'RESUME' }
+    { id: 0, label: 'Drawer 1: Technical Arsenal', icon: Cpu, badge: 'SKILLS' },
+    { id: 1, label: 'Drawer 2: Workstation Rig', icon: Monitor, badge: 'GEAR' },
+    { id: 2, label: 'Drawer 3: Systems Bio', icon: Heart, badge: 'BIO' },
+    { id: 3, label: 'Drawer 4: Milestones & Stats', icon: Award, badge: 'STATS' }
   ];
 
   const handleDrawerClick = (index: number) => {
@@ -21,8 +21,14 @@ export const AboutModal: React.FC = () => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/50 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden">
+    <div
+      onClick={closeModal}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden cursor-default"
+      >
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b-3 border-ink bg-white">
           <div className="flex items-center gap-3">
@@ -31,17 +37,17 @@ export const AboutModal: React.FC = () => {
             </div>
             <div>
               <h2 className="text-xl sm:text-2xl font-black text-ink">
-                Filing Cabinet (About & Skills)
+                Filing Cabinet (About & Arsenal)
               </h2>
               <p className="text-xs text-ink-soft font-mono">
-                Slide open the 3D metal drawers to inspect abilities & bio
+                Slide open the metal drawers to inspect systems engineering skills & background
               </p>
             </div>
           </div>
 
           <button
             onClick={closeModal}
-            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm"
+            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -56,7 +62,7 @@ export const AboutModal: React.FC = () => {
               <button
                 key={d.id}
                 onClick={() => handleDrawerClick(d.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-2xl font-mono text-xs font-bold border-t-3 border-x-3 border-ink transition-all flex-shrink-0 ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-t-2xl font-mono text-xs font-bold border-t-3 border-x-3 border-ink transition-all flex-shrink-0 cursor-pointer ${
                   isActive
                     ? 'bg-white text-ink shadow-comic -mb-[3px] z-10'
                     : 'bg-paper text-ink-soft hover:bg-cheese'
@@ -96,7 +102,7 @@ export const AboutModal: React.FC = () => {
                           </div>
                           <div className="w-full h-2.5 bg-paper-dark rounded-full border border-ink overflow-hidden">
                             <div
-                              className="h-full bg-hoodie rounded-full"
+                              className="h-full bg-sky-500 rounded-full"
                               style={{ width: `${s.level}%` }}
                             />
                           </div>
@@ -113,7 +119,7 @@ export const AboutModal: React.FC = () => {
           {activeDrawer === 1 && (
             <div className="space-y-4">
               <h3 className="text-sm font-mono font-bold text-ink-faint uppercase">
-                Hardware, Software & Studio Props
+                Workstation Hardware, Architecture & Props
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {STUDIO_EQUIPMENT.map((eq) => (
@@ -138,58 +144,77 @@ export const AboutModal: React.FC = () => {
           {activeDrawer === 2 && (
             <div className="max-w-2xl space-y-4 text-ink leading-relaxed">
               <div className="p-4 bg-paper rounded-2xl border-3 border-ink shadow-comic mb-4">
-                <span className="text-xs font-mono font-bold text-hoodie uppercase">
-                  Artist • Designer • Web Architect
-                </span>
-                <h3 className="text-2xl font-black mt-1">Hello from the Studio!</h3>
+                <div className="flex items-center gap-2 text-sky-600 font-mono text-xs font-bold uppercase">
+                  <Terminal className="w-4 h-4" />
+                  <span>{BENHIN_PROFILE.title}</span>
+                </div>
+                <h3 className="text-2xl font-black mt-1">Hello from Benhin ({BENHIN_PROFILE.handle})</h3>
               </div>
               <p>
-                I am a web designer, frontend architect, and artist. Since 2007, I have redesigned and archived a completely fresh version of my portfolio every single year.
+                I am <strong>Benhin</strong>, a Native Android Systems Architect and Low-Level Multimedia Engineer dedicated to building ultra-high-performance mobile systems, zero-bloat audio/video engines, and resilient network protocol architectures.
               </p>
               <p>
-                The 2018 edition paid tribute to the inimitable world of <em>Bob's Burgers</em> with hand-drawn vector line art, an oversized red hoodie, and an interactive studio that responded to screen dimensions.
+                I'm the author of <strong>FAIRY LIVE</strong>, an open-source native Android live-streaming engine built under a strict <strong>&lt;15MB APK constraint</strong> with pure Kotlin execution, hardware MediaCodec H.264/AAC encoding, and custom RTMP/FLV socket transport.
               </p>
               <p>
-                This modern 3D incarnation breathes spatial life into that vision: genuine Three.js cel-shaded geometry, procedural Web Audio acoustics, and mouse-scroll camera kinematics.
+                I also architect <strong>FAIRY MUSIC</strong>, a high-fidelity Material Design streaming app featuring sub-50ms synchronized "Play Together" host-client playback, 120 FPS fluid UI, and Apple Canvas visualizers.
               </p>
+              <div className="p-4 bg-ink text-white rounded-xl font-mono text-xs border-2 border-ink">
+                <span className="text-sky-400 font-bold">$ uname -a</span>
+                <p className="text-slate-300 mt-1">
+                  Linux kali-workstation 6.10-amd64 #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux
+                </p>
+                <p className="text-emerald-400 mt-1">
+                  ✓ Core: Zero-Bloat Kotlin • MediaCodec • AudioRecord DSP • Pure Execution
+                </p>
+              </div>
             </div>
           )}
 
-          {/* Drawer 4: Credentials & Resume */}
+          {/* Drawer 4: Credentials & Stats */}
           {activeDrawer === 3 && (
             <div className="space-y-6">
-              <div className="p-6 rounded-2xl border-3 border-ink bg-cheese shadow-comic flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="p-6 rounded-2xl border-3 border-ink bg-sky-100 shadow-comic flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                  <h3 className="text-xl font-black text-ink">Download Full Resume</h3>
+                  <h3 className="text-xl font-black text-ink">Connect with Benhin</h3>
                   <p className="text-xs text-ink-soft mt-1">
-                    Complete engineering history, design leadership, and speaking credentials.
+                    Open to collaborations on low-level Android multimedia, RTMP/FLV protocols, and high-performance mobile systems.
                   </p>
                 </div>
-                <button
-                  onClick={() => alert("Resume downloaded!")}
-                  className="px-6 py-2.5 rounded-xl border-2 border-ink bg-ink text-white font-mono font-bold text-xs shadow-comic hover:bg-hoodie transition-colors flex-shrink-0"
+                <a
+                  href={BENHIN_PROFILE.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-6 py-2.5 rounded-xl border-2 border-ink bg-ink text-white font-mono font-bold text-xs shadow-comic hover:bg-sky-600 transition-colors flex-shrink-0 flex items-center gap-2"
                 >
-                  DOWNLOAD PDF ↗
-                </button>
+                  <span>GITHUB PROFILE ↗</span>
+                </a>
               </div>
 
               <div className="space-y-3">
                 <h4 className="font-mono text-xs font-bold text-ink-faint uppercase">
-                  Highlights & Speaking
+                  Systems Engineering Milestones
                 </h4>
                 <div className="p-4 rounded-xl border-2 border-ink bg-paper flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-sm text-ink">CSSDay Keynote Speaker</div>
-                    <div className="text-xs text-ink-soft">Illustration & Constraint-Driven Web Design</div>
+                    <div className="font-bold text-sm text-ink">FAIRY LIVE Engine</div>
+                    <div className="text-xs text-ink-soft">Pure-Kotlin RTMP socket engine &lt;15MB APK constraint</div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-hoodie">Amsterdam</span>
+                  <span className="text-xs font-mono font-bold text-red-600">Active Architecture</span>
                 </div>
                 <div className="p-4 rounded-xl border-2 border-ink bg-paper flex items-center justify-between">
                   <div>
-                    <div className="font-bold text-sm text-ink">Net Magazine Feature Issue #261</div>
-                    <div className="text-xs text-ink-soft">A Single Div & Creative CSS</div>
+                    <div className="font-bold text-sm text-ink">FAIRY MUSIC v1.0.8 Live</div>
+                    <div className="text-xs font-ink-soft">120 FPS Compose UI & synchronized Play Together mesh</div>
                   </div>
-                  <span className="text-xs font-mono font-bold text-mint-dark">Global</span>
+                  <span className="text-xs font-mono font-bold text-emerald-600">GPL v3</span>
+                </div>
+                <div className="p-4 rounded-xl border-2 border-ink bg-paper flex items-center justify-between">
+                  <div>
+                    <div className="font-bold text-sm text-ink">Broadcast Audio DSP Core</div>
+                    <div className="text-xs text-ink-soft">Sub-10ms sidechain auto-ducking & speech noise gate</div>
+                  </div>
+                  <span className="text-xs font-mono font-bold text-sky-600">Production</span>
                 </div>
               </div>
             </div>
@@ -199,7 +224,7 @@ export const AboutModal: React.FC = () => {
         {/* Footer */}
         <div className="p-4 bg-paper-dark border-t-3 border-ink flex items-center justify-between text-xs font-mono text-ink-soft">
           <span>Cabinet Index: Drawer #{activeDrawer + 1} of 4</span>
-          <span>Stickers: CSS IS AWESOME • ♡ JS ♡</span>
+          <span>Decals: KALI LINUX • ZERO-BLOAT KOTLIN • MEDIACODEC</span>
         </div>
       </div>
     </div>

@@ -1,258 +1,309 @@
 import { SpatialStation, WebProject, ArtPiece, SkillCategory, ThoughtArticle } from '../types/portfolio';
 
+export const BENHIN_PROFILE = {
+  name: 'Benhin',
+  handle: '@Benhin3025',
+  githubUsername: 'lgdark7',
+  githubUrl: 'https://github.com/lgdark7',
+  discordUrl: 'https://discord.gg/AWAe8gS7yq',
+  gunslolUrl: 'https://guns.lol/lg_dark',
+  title: 'Native Android Systems & Multimedia Architect',
+  shortTitle: 'Systems & Multimedia Architect',
+  quote: 'Never play it safe.. There is nothing in my heart except cold logic, pure execution, and relentless engineering.',
+  avatarBio: 'Kali Linux user, low-level Android media architect, and author of Fairy Live and Fairy Music. Obsessed with sub-millisecond audio buffers, zero-bloat Kotlin, and pure RTMP protocol sockets.',
+  location: 'Studio Workstation • Kali Linux Environment',
+  stats: [
+    { label: 'Active Projects', value: '4+' },
+    { label: 'Fairy Live Footprint', value: '<15 MB' },
+    { label: 'Fairy Music FPS', value: '120 FPS' },
+    { label: 'Encoding', value: 'MediaCodec' }
+  ]
+};
+
 export const SPATIAL_STATIONS: SpatialStation[] = [
   {
     id: 'hub',
     index: 0,
-    label: 'Studio Hub',
-    tagline: 'Lynn Fisher Creative Studio 2018',
+    label: 'Studio Command',
+    tagline: 'Benhin (@lgdark7) • Systems & Multimedia Architect',
     badge: '00',
-    hotspotLabel: 'Look Around Studio',
-    color: '#E45C4C'
+    hotspotLabel: 'Open Profile Command Center',
+    color: '#0ea5e9' // Kali sky blue
   },
   {
     id: 'web',
     index: 1,
-    label: 'Web Engineering',
-    tagline: 'Interactive Web Apps & Code',
+    label: 'Systems & Repos',
+    tagline: 'Fairy Live, Fairy Music & High-Throughput Engines',
     badge: '01',
-    hotspotLabel: 'Inspect Monitor',
+    hotspotLabel: 'Inspect Workstation Monitor',
     color: '#118AB2'
   },
   {
     id: 'art',
     index: 2,
-    label: 'Art & Lab',
-    tagline: 'Single Div CSS Art & Visuals',
+    label: 'Protocol Lab',
+    tagline: 'RTMP / FLV Socket Optics, DSP & Packet Schematics',
     badge: '02',
-    hotspotLabel: 'View Art Gallery',
+    hotspotLabel: 'View Architecture Gallery',
     color: '#06D6A0'
   },
   {
     id: 'about',
     index: 3,
-    label: 'About & Gear',
-    tagline: 'Filing Cabinet of Skills & Bio',
+    label: 'Technical Arsenal',
+    tagline: 'Filing Cabinet: Kotlin, NDK, MediaCodec & Kali Linux',
     badge: '03',
-    hotspotLabel: 'Open Filing Cabinet',
+    hotspotLabel: 'Slide Open Filing Drawers',
     color: '#FFD166'
   },
   {
     id: 'thoughts',
     index: 4,
-    label: 'Thoughts',
-    tagline: 'Essays, Process & Case Studies',
+    label: 'Engineering Log',
+    tagline: 'Deep Dives on MediaCodec, DSP Ducking & Zero-Bloat',
     badge: '04',
-    hotspotLabel: 'Read Chalkboard',
-    color: '#70587C'
+    hotspotLabel: 'Read Chalkboard Case Studies',
+    color: '#8b5cf6'
   },
   {
     id: 'archive',
     index: 5,
-    label: 'Archive & Connect',
-    tagline: '18 Years of Sites & Contact',
+    label: 'Connect & Terminal',
+    tagline: 'Discord Community, Guns.lol, OTA Releases & Guestbook',
     badge: '05',
-    hotspotLabel: 'Drop a Message',
+    hotspotLabel: 'Access Connect Terminal',
     color: '#E45C4C'
   }
 ];
 
 export const WEB_PROJECTS: WebProject[] = [
   {
-    id: 'a-single-div',
-    title: 'a.singlediv.com',
-    category: 'css-art',
-    description: 'An ongoing drawing project to see what’s possible with CSS. Each drawing is one single HTML element (the beloved div) and pure gradients, box-shadows, and pseudo-elements.',
-    impact: 'Featured in Net Magazine #261, CSSDay talk, and celebrated across frontend design culture.',
-    tags: ['CSS3', 'Single Div', 'Generative Gradients', 'Creative Code'],
-    demoUrl: 'https://a.singlediv.com',
-    githubUrl: 'https://github.com/lynnandtonic/a-single-div',
+    id: 'fairy-live',
+    title: 'FAIRY LIVE',
+    category: 'android',
+    description: 'Zero-bloat native Android live streaming engine engineered under a strict <15MB APK constraint. Pure-Kotlin RTMP socket engine, MediaProjection & Camera2 pipelines, hardware MediaCodec H.264/AAC encoding, and broadcast-grade audio DSP.',
+    impact: 'Ultra-low latency RTMP broadcasting to Twitch, YouTube, and custom RTMP ingest servers with zero third-party framework bloat.',
+    tags: ['Kotlin', 'MediaCodec', 'RTMP / FLV Sockets', 'Camera2', 'MediaProjection', 'Audio DSP'],
+    demoUrl: 'https://github.com/lgdark7/FairyLive',
+    githubUrl: 'https://github.com/lgdark7/FairyLive',
     featured: true,
-    accentColor: '#E45C4C',
-    previewType: 'single-div'
-  },
-  {
-    id: 'usflags-design',
-    title: 'usflags.design',
-    category: 'frontend',
-    description: 'An exhaustive visual design guide and interactive atlas documenting all 50 US state and territory flags with official color specifications, proportions, and vexillology history.',
-    impact: 'Cited by state offices, educational institutions, and visual designers worldwide.',
-    tags: ['SVG Engineering', 'Design Systems', 'React', 'Information Architecture'],
-    demoUrl: 'https://usflags.design',
-    githubUrl: 'https://github.com/lynnandtonic/usflags.design',
-    featured: true,
-    accentColor: '#118AB2',
+    accentColor: '#ef4444',
+    stats: '< 15MB APK • Sub-100ms Latency',
     previewType: 'interactive'
   },
   {
-    id: 'airport-codes',
-    title: 'airportcod.es',
-    category: 'fullstack',
-    description: 'Ever wondered why airport IATA codes are named what they are? An interactive photographic directory deciphering over 1,000 airport codes across the globe.',
-    impact: 'Featured on Vox, CNN, NPR Here & Now, and viewed by millions of travelers.',
-    tags: ['Data Architecture', 'Fast Search', 'Travel Tech', 'Node.js'],
-    demoUrl: 'https://airportcod.es',
-    githubUrl: 'https://github.com/lynnandtonic/airport-codes',
+    id: 'fairy-music',
+    title: 'FAIRY MUSIC',
+    category: 'multimedia',
+    description: 'Open-source, Material Design Android music streaming application. Features real-time synchronized "Play Together" host-client playback, buttery-smooth 120 FPS UI, Apple Music Canvas animated visuals, and multi-source synchronized lyrics and metadata.',
+    impact: 'v1.0.8 Live with high-fidelity Media3 / ExoPlayer pipeline, zero-lag playlist virtualization, and decentralized InnerTube integration.',
+    tags: ['Kotlin', 'Jetpack Compose', 'ExoPlayer', 'Media3', 'Material 3', 'GPL v3'],
+    demoUrl: 'https://github.com/lgdark7/FAIRY-MUSIC',
+    githubUrl: 'https://github.com/lgdark7/FAIRY-MUSIC',
     featured: true,
+    accentColor: '#38bdf8',
+    stats: 'v1.0.8 Live • 120 FPS Fluidity',
+    previewType: 'interactive'
+  },
+  {
+    id: 'fairylive-releases',
+    title: 'FairyLive OTA Distribution Pipeline',
+    category: 'protocols',
+    description: 'Public distribution channel, automated version manifests, and decentralized over-the-air update delivery engine for Fairy Live APK releases.',
+    impact: 'Automated release packaging, SHA256 integrity verification, and instant OTA patch delivery.',
+    tags: ['JSON Manifests', 'OTA Architecture', 'Release Automation', 'GitOps'],
+    demoUrl: 'https://github.com/lgdark7/fairylive-releases',
+    githubUrl: 'https://github.com/lgdark7/fairylive-releases',
+    featured: true,
+    accentColor: '#a855f7',
+    stats: 'Automated Manifest Delivery',
+    previewType: 'terminal'
+  },
+  {
+    id: 'studio-dsp-ducking',
+    title: 'Broadcast Audio DSP & Ducking Core',
+    category: 'multimedia',
+    description: 'Custom native Android AudioRecord processing engine featuring voice-priority DSP, dynamic under-speech fan noise subtraction, sidechain auto-ducking, and adaptive microphone lifecycle locks.',
+    impact: 'Crystal-clear speech capture during live mobile gaming streams without background noise.',
+    tags: ['AudioRecord', 'DSP Filters', 'Sidechain Ducking', 'Noise Suppression'],
+    demoUrl: 'https://github.com/lgdark7/FairyLive',
+    githubUrl: 'https://github.com/lgdark7/FairyLive',
+    featured: false,
     accentColor: '#06D6A0',
-    previewType: 'interactive'
+    stats: 'Voice-Priority Sub-10ms Gate',
+    previewType: 'code'
   },
   {
-    id: 'hollywood-age-gap',
-    title: 'hollywoodagegap.com',
-    category: 'frontend',
-    description: 'A data journalism project analyzing the systemic age disparity between romantic male leads and female co-stars across cinema history.',
-    impact: 'Viral cultural data project referenced in film studies and international press.',
-    tags: ['Data Visualization', 'Chart.js', 'Sociology', 'Editorial'],
-    demoUrl: 'https://hollywoodagegap.com',
-    githubUrl: 'https://github.com/lynnandtonic/hollywood-age-gap',
+    id: 'kali-protocol-optics',
+    title: 'Kali Protocol Reverse Engineering & Optics',
+    category: 'protocols',
+    description: 'Low-level network protocol analysis, RTMP chunk stream framing, FLV packet dissection, and Linux socket optimizations for high-throughput packet delivery.',
+    impact: 'Reverse-engineered socket-level packet sequencing for resilient streaming under 40% packet loss.',
+    tags: ['Kali Linux', 'Wireshark', 'Socket Programming', 'Network Security', 'Bash'],
+    demoUrl: 'https://guns.lol/lg_dark',
+    githubUrl: 'https://github.com/lgdark7',
     featured: false,
     accentColor: '#FFD166',
-    previewType: 'interactive'
+    stats: 'Packet Stream Dissection',
+    previewType: 'terminal'
   },
   {
-    id: 'the-food-place',
-    title: 'thefoodplace.cafe',
-    category: 'frontend',
-    description: 'A delightful interactive restaurant menu for this life and after, themed after the television masterpiece The Good Place with clam chowder fountains and cosmic frozen yogurt.',
-    impact: 'Beloved homage visited by thousands of fans of The Good Place.',
-    tags: ['Creative Fiction UI', 'Tailwind', 'Micro-Interactions'],
-    demoUrl: 'https://thefoodplace.cafe',
-    githubUrl: 'https://github.com/lynnandtonic/thefoodplace.cafe',
-    featured: false,
-    accentColor: '#70587C',
-    previewType: 'interactive'
-  },
-  {
-    id: 'studio-3d-cel',
-    title: 'Lynn 2018 3D Spatial Experience',
+    id: 'cel-shaded-portfolio-3d',
+    title: '3D Cel-Shaded Interactive Studio',
     category: 'webgl',
-    description: 'This very project! Transforming the hand-drawn Bob\'s Burgers cel-shaded 2018 studio into an unconstrained 3D WebGL world with scroll-driven spline cameras and real-time audio synthesis.',
-    impact: 'State-of-the-art interactive spatial portfolio eliminating static 2D navbars.',
-    tags: ['Three.js', 'Toon Shader', 'Web Audio API', 'React 19', 'TypeScript'],
+    description: 'This very project! Bringing the Bob\'s Burgers cel-shaded aesthetic into true 3D WebGL with Catmull-Rom spline camera navigation, an interactive 3D spatial orbital compass, and real-time Web Audio API sound synthesis.',
+    impact: 'Eliminated static 2D buttons in favor of complete 3D spatial mouse-driven travel.',
+    tags: ['Three.js', 'Custom Toon Shaders', 'Web Audio API', 'React 19', 'TypeScript'],
     demoUrl: '#',
-    githubUrl: 'https://github.com',
+    githubUrl: 'https://github.com/lgdark7',
     featured: true,
-    accentColor: '#E45C4C',
+    accentColor: '#0ea5e9',
+    stats: '60 FPS WebGL • 0 Static Navbars',
     previewType: 'visual'
   }
 ];
 
 export const ART_PIECES: ArtPiece[] = [
   {
-    id: 'sensual-woman',
-    title: 'Strong, Sensual Woman',
-    medium: 'Wall Illustration Frame & Typography',
-    year: '2018',
-    description: 'A heartfelt Bob\'s Burgers homage to Tina Belcher\'s immortal life philosophy.',
-    quote: 'I\'m a strong, sensual woman.',
-    color: '#E45C4C'
+    id: 'cold-logic-motto',
+    title: 'The Cold Logic Creed',
+    medium: 'Wall Frame • Developer Philosophy',
+    year: '2026',
+    description: 'The core engineering tenet guiding Benhin\'s systems development.',
+    quote: 'Never play it safe.. There is nothing in my heart except cold logic, pure execution, and relentless engineering.',
+    codeHighlights: ['while (true) { execute(); }', 'const bloat = 0;', 'export default pureExecution;'],
+    color: '#0ea5e9'
   },
   {
-    id: 'burger-special',
-    title: 'Vincent Van Goat Cheese Burger',
-    medium: 'Chalkboard Special ($5.95)',
-    year: '2018',
-    description: 'Served with sliced roasted beets, warm artisan goat cheese, and fresh arugula on a brioche bun.',
-    quote: 'Today\'s Burger: Vincent Van Goat Cheese - $5.95',
-    color: '#FFD166'
+    id: 'rtmp-schematic',
+    title: 'Pure-Kotlin RTMP Socket Architecture',
+    medium: 'Chalkboard Schematic ($0.00 / Open Source)',
+    year: '2026',
+    description: 'Zero-overhead socket chunking: Type 0/1/2 headers, AMF0 serialization, and MediaCodec raw byte injection directly into TCP streams.',
+    quote: 'Fairy Live Core: Direct Hardware MediaCodec -> TCP Socket Pipeline',
+    codeHighlights: ['ChunkStream.send(AMF0.encode(connect))', 'MediaCodec.dequeueOutputBuffer()', 'socket.outputStream.write(flvTag)'],
+    color: '#ef4444'
   },
   {
-    id: 'css-is-awesome',
-    title: 'CSS IS AWESOME Mug & Sticker',
-    medium: 'Graphic Enamel Decal',
-    year: '2018',
-    description: 'The infamous overflowing text box that every CSS developer knows in their soul.',
-    cssHighlights: ['overflow: visible;', 'border: 3px solid #14303F;', 'box-sizing: border-box;'],
-    color: '#06D6A0'
+    id: 'kali-dragon-decal',
+    title: 'Kali Linux Dragon Decal',
+    medium: 'Graphic Metal Enamel Decal on Cabinet',
+    year: '2026',
+    description: 'The iconic emblem of security research, packet inspection, and low-level Linux mastery.',
+    quote: 'The quieter you become, the more you are able to hear.',
+    codeHighlights: ['uname -r: 6.x-kali-amd64', 'iptables -A FORWARD -j ACCEPT', 'tcpdump -i wlan0 -nn -s0 -v'],
+    color: '#38bdf8'
   },
   {
-    id: 'single-div-bb8',
-    title: 'BB-8 in a Single Div',
-    medium: 'CSS Gradients & Box Shadows',
-    year: '2017',
-    description: 'Our loyal Astromech droid rendered inside exactly one HTML <div> tag using 35 layered radial gradients and border radius tricks.',
-    color: '#118AB2'
+    id: 'play-together-audio',
+    title: 'Fairy Music Synchronized Sync Mesh',
+    medium: 'Audio Waveform & Distributed Timing',
+    year: '2026',
+    description: 'Sub-50ms synchronized host-to-client streaming protocol delivering unified playback across mobile devices.',
+    quote: 'High-Fidelity Audio • 120 FPS Fluidity • Instant Play Together',
+    codeHighlights: ['ExoPlayer.seekTo(syncedTimestampMs)', 'DynamicBuffer.smoothAdjust(driftDelta)'],
+    color: '#10b981'
   }
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
-    name: 'Frontend & 3D WebGL',
-    description: 'Spatial web experiences, reactive UI, and mathematical canvas shaders.',
+    name: 'Native Android & Multimedia',
+    description: 'High-performance mobile systems, hardware encoders, and fluid media pipelines.',
     skills: [
-      { name: 'Three.js / WebGL', level: 95, icon: 'Box' },
-      { name: 'React 19 & Next.js', level: 98, icon: 'Layers' },
-      { name: 'TypeScript Architecture', level: 96, icon: 'Code' },
-      { name: 'Tailwind CSS & Design Systems', level: 98, icon: 'Palette' },
-      { name: 'Creative CSS & Animations', level: 100, icon: 'Sparkles' }
+      { name: 'Kotlin (Zero-Bloat Idiomatic)', level: 98, icon: 'Code' },
+      { name: 'Hardware MediaCodec (H.264 & AAC)', level: 96, icon: 'Cpu' },
+      { name: 'MediaProjection & Camera2 APIs', level: 95, icon: 'Camera' },
+      { name: 'Jetpack Compose & 120 FPS UI', level: 94, icon: 'Layers' },
+      { name: 'Media3 / ExoPlayer Engines', level: 95, icon: 'Music' }
     ]
   },
   {
-    name: 'Fullstack & Systems',
-    description: 'Robust server architectures, API contracts, and high-throughput backends.',
+    name: 'Systems, Protocols & Audio DSP',
+    description: 'Socket-level network programming, broadcast DSP, and Linux kernel optimization.',
     skills: [
-      { name: 'Node.js & Bun runtime', level: 92, icon: 'Cpu' },
-      { name: 'PostgreSQL & Redis', level: 88, icon: 'Database' },
-      { name: 'Web Audio API Synthesis', level: 90, icon: 'Volume2' },
-      { name: 'Vite & Modern Tooling', level: 94, icon: 'Zap' }
+      { name: 'RTMP / FLV Socket Protocols', level: 96, icon: 'Radio' },
+      { name: 'Broadcast Audio DSP & Ducking', level: 92, icon: 'Volume2' },
+      { name: 'Kali Linux & System Hardening', level: 94, icon: 'Terminal' },
+      { name: 'C++ / Android NDK & JNI', level: 88, icon: 'Binary' },
+      { name: 'Network Packet Reverse Engineering', level: 92, icon: 'Shield' }
     ]
   },
   {
-    name: 'Craft & Philosophy',
-    description: 'The principles that guide every pixel and polygon.',
+    name: 'Build, OTA & Modern Frontend',
+    description: 'Production distribution, decentralized manifests, and spatial WebGL graphics.',
     skills: [
-      { name: 'Single-Div Constraint Art', level: 100, icon: 'Maximize2' },
-      { name: 'Accessible Spatial Interaction', level: 94, icon: 'Eye' },
-      { name: 'Humor & Storytelling', level: 95, icon: 'Smile' },
-      { name: 'Autonomous Rigor', level: 98, icon: 'CheckCircle' }
+      { name: 'Decentralized OTA Version Engines', level: 95, icon: 'CloudDownload' },
+      { name: 'Three.js & 3D Spatial Experiences', level: 90, icon: 'Box' },
+      { name: 'Gradle & CMake Build Systems', level: 92, icon: 'Wrench' },
+      { name: 'Git & Automated CI/CD Pipelines', level: 94, icon: 'GitBranch' }
     ]
   }
 ];
 
 export const THOUGHT_ARTICLES: ThoughtArticle[] = [
   {
-    id: 'case-study-2018',
-    title: 'Case Study: The 2018 Refresh & 220 Media Queries',
-    date: 'December 20, 2018',
+    id: 'case-study-fairy-live',
+    title: 'Architecting Fairy Live: Pure-Kotlin RTMP Engine Under 15MB',
+    date: 'October 16, 2026',
+    readTime: '7 min read',
+    summary: 'How I engineered a native Android live streaming engine with zero third-party dependencies, hardware MediaCodec encoding, and sub-100ms latency in a sub-15MB APK footprint.',
+    tags: ['Android', 'Kotlin', 'RTMP', 'MediaCodec', 'Systems Architecture'],
+    content: `Most modern Android streaming SDKs drag in hundreds of megabytes of bloated C++ binaries, third-party analytics trackers, and heavy wrappers. When building FAIRY LIVE, I established an uncompromising constraint: the entire engine had to remain under 15MB with pure Kotlin execution.
+
+By talking directly to Android's native MediaCodec hardware encoders for H.264 video and AAC audio, we bypass the need for external FFmpeg binaries. Frame buffers from Camera2 and MediaProjection are rendered straight into surface encoders.
+
+For network transport, we built a pure-Kotlin RTMP/FLV socket engine from scratch. It handles RTMP handshake, chunk stream multiplexing, and AMF0 serialization with minimal memory allocations, eliminating GC pauses during 60 FPS live gaming broadcasts.`
+  },
+  {
+    id: 'audio-dsp-sidechain-ducking',
+    title: 'Broadcast Audio DSP on Android: Real-Time Sidechain Ducking',
+    date: 'October 20, 2026',
     readTime: '6 min read',
-    summary: 'How I turned a tribute to Bob\'s Burgers into an animated resizing sequence using 44 frames of clothing sprites and over 220 media queries.',
-    tags: ['Case Study', 'Animation', 'CSS Architecture', 'Stylus'],
-    content: `In 2017, my portfolio featured 20 media queries where the site morphed every 100px. For 2018, I wanted the scaling to be deliberate: clothes that shrank teeny tiny when squeezed, and grew oversized and baggy when expanded on widescreen monitors!
+    summary: 'Designing voice-priority AudioRecord pipelines, phase cancellation, fan noise subtraction, and automatic microphone ducking on mobile hardware.',
+    tags: ['Audio DSP', 'Android NDK', 'Kotlin', 'Acoustics'],
+    content: `When a streamer plays a high-octane mobile game, game audio and device fan noise frequently overwhelm the microphone commentary.
 
-Rather than one giant, sluggish image sprite, I separated the artwork into modular components: hair, faces, mouths, arms, shoes, and hoodies. With Stylus mixins, I could generate 44 distinct animation frames mapped across 23px and 47px viewport steps.
+In Fairy Live's audio core, we implemented a real-time sidechain auto-ducking pipeline:
+1. Microphone PCM stream is monitored for voice formant activity across 300Hz-3.4kHz.
+2. When voice presence exceeds the adaptive noise gate threshold, the internal game audio buffer is ducked by -14dB over an 8ms logarithmic attack envelope.
+3. During pauses in speech, the audio smoothly ramps back up over a 350ms release curve.
 
-The beauty of the web is that constraints breed unforgettable creativity.`
+The result is professional broadcast audio quality directly from a mobile device without requiring external mixer hardware.`
   },
   {
-    id: 'single-div-art',
-    title: 'The Power of Creative Constraints: Drawing with One Div',
-    date: 'April 14, 2019',
+    id: 'fairy-music-sync-mesh',
+    title: 'Fairy Music & Synchronized "Play Together" Host-Client Mesh',
+    date: 'October 22, 2026',
     readTime: '5 min read',
-    summary: 'Why limiting yourself to a single HTML element teaches you more about browser layout engines than any framework documentation ever could.',
-    tags: ['CSS', 'Single Div', 'Creative Coding'],
-    content: `When you have unlimited markup, you reach for another nested container. But when you only have ONE <div> and two pseudo-elements (::before and ::after), you are forced to master the profound depths of linear-gradient, radial-gradient, repeating-conic-gradient, box-shadow arrays, and border-radius percentages.
+    summary: 'Building a sub-50ms synchronized listening room over WebSockets and ExoPlayer with zero latency drift and 120 FPS fluid animations.',
+    tags: ['Media3', 'ExoPlayer', 'Compose', 'Synchronization', 'Music'],
+    content: `Music is best experienced together. For FAIRY MUSIC, we wanted friends to listen to the exact same track in synchronized lockstep regardless of network conditions.
 
-A single div is a meditation on what CSS truly is: a procedural rendering engine disguised as a styling sheet.`
+Using a lightweight time-synchronization protocol (inspired by NTP), the client calculates round-trip clock skew with the host. If drift exceeds 40ms, the ExoPlayer playback pitch and rate are subtly modulated (0.98x or 1.02x) for a fraction of a second, aligning playback imperceptibly to human ears without audio pops or stutter.`
   },
   {
-    id: 'spatial-web-future',
-    title: 'Beyond Flat Buttons: Why Spatial Interaction Matters',
+    id: 'kali-linux-daily-driver',
+    title: 'Kali Linux as a Daily Driver: Low-Level Protocols & Systems Engineering',
     date: 'October 23, 2026',
-    readTime: '4 min read',
-    summary: 'Moving away from the cookie-cutter top-right navbar toward physical, tactile 3D environments that respond to human gestures and mouse scrolling.',
-    tags: ['WebGL', 'Three.js', 'UI Design', 'Spatial Web'],
-    content: `For twenty years, web design put links in a row in the top-right corner. It is functional, but predictable.
+    readTime: '6 min read',
+    summary: 'Why daily driving Kali Linux sharpens your understanding of raw sockets, protocol frames, and low-level kernel performance.',
+    tags: ['Kali Linux', 'Protocols', 'Security', 'Linux Kernel'],
+    content: `Running Kali Linux isn't just about penetration testing tools—it is about having raw, unfiltered visibility into every packet leaving your network interface.
 
-When we treat the web as a space rather than a document, scrolling becomes travel. Objects in the room aren't decorations—they are the interfaces themselves. A desk lamp is a theme toggle; a monitor is your terminal; a filing cabinet holds your resume. Spatial interaction turns browsing into an experience.`
+When debugging socket issues in custom streaming protocols, having Wireshark, strace, and raw socket inspection ready at your fingertips allows you to pinpoint dropped TCP acknowledgments, TCP window resizing, and packet fragmentation in seconds.
+
+Building resilient systems requires knowing exactly what happens between your code and the wire.`
   }
 ];
 
 export const STUDIO_EQUIPMENT = [
-  { item: 'Main Rig', desc: 'Custom Workstation PC with dual high-refresh monitors' },
-  { item: 'Audio', desc: 'Synthesized Web Audio API Spatial Engine' },
-  { item: 'Desk Lamp', desc: 'Yellow Articulated Architect Lamp with 3-Way Cel Spotlight' },
-  { item: 'Cat', desc: 'Studio Tabby (Sleeping, purrs when petted)' },
-  { item: 'Drink', desc: 'Steaming pour-over coffee in custom CSS IS AWESOME mug' },
-  { item: 'Snack', desc: 'Vincent Van Goat Cheese Burger from the chalkboard special' }
+  { item: 'Main Rig', desc: 'Custom Workstation PC with Kali Linux & Android Studio Dev Environment' },
+  { item: 'Streaming Engine', desc: 'FAIRY LIVE — Pure-Kotlin RTMP Engine (<15MB APK constraint)' },
+  { item: 'Music Player', desc: 'FAIRY MUSIC — Material 120 FPS Streaming & Synced Play Together' },
+  { item: 'Desk Lamp', desc: 'Articulated 3-Way Architect Spotlight with Day/Sunset/Night Modes' },
+  { item: 'Studio Cat', desc: 'Loyal Studio Cat (Pet for purr reaction)' },
+  { item: 'Drink', desc: 'Steaming pour-over coffee in Developer Mug' },
+  { item: 'Decal', desc: 'Kali Linux Dragon & Zero-Bloat Kotlin Badges on Metal Cabinet' }
 ];
