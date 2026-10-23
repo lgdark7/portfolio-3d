@@ -23,38 +23,38 @@ export const AboutModal: React.FC = () => {
   return (
     <div
       onClick={closeModal}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden cursor-default"
+        className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-paper border-3 sm:border-4 border-ink shadow-comic-xl rounded-2xl sm:rounded-3xl flex flex-col overflow-hidden cursor-default"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b-3 border-ink bg-white">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-cheese border-2 border-ink flex items-center justify-center text-ink font-mono font-black shadow-comic-sm">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b-2 sm:border-b-3 border-ink bg-white">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-cheese border-2 border-ink flex items-center justify-center text-ink font-mono font-black shadow-comic-sm text-sm sm:text-base flex-shrink-0">
               03
             </div>
             <div>
-              <h2 className="text-xl sm:text-2xl font-black text-ink">
-                Filing Cabinet (About & Arsenal)
+              <h2 className="text-lg sm:text-2xl font-black text-ink">
+                Filing Cabinet (About & Skills)
               </h2>
-              <p className="text-xs text-ink-soft font-mono">
-                Slide open the metal drawers to inspect systems engineering skills & background
+              <p className="text-[11px] sm:text-xs text-ink-soft font-mono">
+                Slide open metal drawers for technical arsenal & bio
               </p>
             </div>
           </div>
 
           <button
             onClick={closeModal}
-            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer"
+            className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer flex-shrink-0"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* 4 Filing Cabinet Tabs (Drawers) */}
-        <div className="bg-paper-dark border-b-3 border-ink px-6 pt-3 flex gap-2 overflow-x-auto">
+        <div className="bg-paper-dark border-b-2 sm:border-b-3 border-ink px-3 sm:px-6 pt-2.5 sm:pt-3 flex gap-2 overflow-x-auto no-scrollbar">
           {drawers.map((d) => {
             const isActive = activeDrawer === d.id;
             const Icon = d.icon;

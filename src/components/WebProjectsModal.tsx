@@ -22,33 +22,33 @@ export const WebProjectsModal: React.FC = () => {
   return (
     <div
       onClick={closeModal}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-ink/60 backdrop-blur-md animate-fadeIn cursor-pointer"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-4xl max-h-[90vh] bg-paper border-4 border-ink shadow-comic-xl rounded-3xl flex flex-col overflow-hidden cursor-default"
+        className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-paper border-3 sm:border-4 border-ink shadow-comic-xl rounded-2xl sm:rounded-3xl flex flex-col overflow-hidden cursor-default"
       >
         {/* Header Bar */}
-        <div className="flex items-center justify-between p-6 border-b-3 border-ink bg-white">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-sky-500 border-2 border-ink flex items-center justify-center text-white font-mono font-black shadow-comic-sm">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b-2 sm:border-b-3 border-ink bg-white">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-sky-500 border-2 border-ink flex items-center justify-center text-white font-mono font-black shadow-comic-sm text-sm sm:text-base flex-shrink-0">
               01
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="text-xl sm:text-2xl font-black text-ink">
-                  Systems Architecture & Repositories
+                <h2 className="text-lg sm:text-2xl font-black text-ink">
+                  Systems & Repositories
                 </h2>
               </div>
-              <p className="text-xs text-ink-soft font-mono">
-                Native Android, RTMP engines, audio DSP pipelines & open-source software
+              <p className="text-[11px] sm:text-xs text-ink-soft font-mono">
+                Native Android, RTMP, DSP & open-source software
               </p>
             </div>
           </div>
 
           <button
             onClick={closeModal}
-            className="p-2.5 rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer"
+            className="p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border-2 border-ink bg-paper hover:bg-hoodie hover:text-white transition-colors shadow-comic-sm cursor-pointer flex-shrink-0"
             title="Close Drawer (Esc)"
           >
             <X className="w-5 h-5" />
@@ -56,7 +56,7 @@ export const WebProjectsModal: React.FC = () => {
         </div>
 
         {/* Filter Pills */}
-        <div className="px-6 py-3 bg-paper-dark border-b-2 border-ink flex items-center gap-2 overflow-x-auto">
+        <div className="px-4 sm:px-6 py-2.5 sm:py-3 bg-paper-dark border-b-2 border-ink flex items-center gap-2 overflow-x-auto no-scrollbar">
           <Filter className="w-4 h-4 text-ink-faint flex-shrink-0" />
           {categories.map((cat) => (
             <button

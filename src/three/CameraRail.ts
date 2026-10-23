@@ -93,6 +93,15 @@ export class CameraRail {
     this.targetPos.x += parallaxX;
     this.targetPos.y += parallaxY;
 
+    // Mobile Portrait Aspect Ratio Compensation:
+    // When viewing on a narrow phone screen (aspect < 0.85), step the camera back
+    // smoothly so the studio room objects and character are framed without side clipping.
+    if (camera.aspect < 0.85) {
+      const mobilePullback = (0.85 - camera.aspect) * 2.2;
+      this.targetPos.z += mobilePullback;
+      this.targetPos.y += mobilePullback * 0.15;
+    }
+
     // Critically damped camera smoothing
     const lerpFactor = 1.0 - Math.exp(-6.5 * deltaTime);
     this.currentPos.lerp(this.targetPos, lerpFactor);

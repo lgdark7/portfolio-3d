@@ -26,16 +26,28 @@ export class StudioScene {
   private lastTime: number = 0;
   private isDestroyed: boolean = false;
 
+  // Mobile Touch Gestures & Momentum Tracking
+  private isTouching: boolean = false;
+  private isTouchDrag: boolean = false;
+  private touchStartX: number = 0;
+  private touchStartY: number = 0;
+  private touchLastY: number = 0;
+  private touchStartTime: number = 0;
+  private touchProgressStart: number = 0;
+  private touchVelocityY: number = 0;
+  private lastTouchMoveTime: number = 0;
+
   constructor(container: HTMLElement) {
     this.container = container;
 
     // 1. Scene
     this.scene = new THREE.Scene();
 
-    // 2. Camera
+    // 2. Camera with responsive FOV (portrait phones need wider vertical FOV)
     const width = container.clientWidth || window.innerWidth;
     const height = container.clientHeight || window.innerHeight;
     this.camera = new THREE.PerspectiveCamera(44, width / height, 0.1, 40);
+    this.updateCameraProjection(width, height);
 
     // 3. Renderer with high-performance settings
     this.renderer = new THREE.WebGLRenderer({
@@ -76,21 +88,141 @@ export class StudioScene {
     this.animate();
   }
 
+  private updateCameraProjection(width: number, height: number) {
+    const aspect = width / height;
+    this.camera.aspect = aspect;
+
+    // Mobile Responsive FOV:
+    // On vertical smartphone screens (aspect 0.45 - 0.65), a 44° FOV cuts off the sides of the room.
+    // Dynamically expand FOV so the room, character, desk, and lighting are completely visible.
+    if (aspect < 0.6) {
+      this.camera.fov = 68; // Vertical phone portrait (e.g. iPhone, Android)
+    } else if (aspect < 0.85) {
+      this.camera.fov = 58; // Tablet / Foldable portrait
+    } else if (aspect < 1.1) {
+      this.camera.fov = 50; // Square / small landscape
+    } else {
+      this.camera.fov = 44; // Standard desktop widescreen
+    }
+
+    this.camera.updateProjectionMatrix();
+    this.renderer.setSize(width, height);
+  }
+
   private bindEvents() {
     window.addEventListener('resize', this.onResize);
     window.addEventListener('pointermove', this.onPointerMove, { passive: true });
     window.addEventListener('click', this.onClick);
     window.addEventListener('wheel', this.onWheel, { passive: false });
+
+    // Touch event listeners for mobile devices
+    this.container.addEventListener('touchstart', this.onTouchStart, { passive: false });
+    window.addEventListener('touchmove', this.onTouchMove, { passive: false });
+    window.addEventListener('touchend', this.onTouchEnd, { passive: false });
+    window.addEventListener('touchcancel', this.onTouchCancel, { passive: false });
   }
 
   private onResize = () => {
     if (this.isDestroyed || !this.container) return;
     const width = this.container.clientWidth || window.innerWidth;
     const height = this.container.clientHeight || window.innerHeight;
+    this.updateCameraProjection(width, height);
+  };
 
-    this.camera.aspect = width / height;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+  private onTouchStart = (e: TouchEvent) => {
+    // If a modal is open, let the user scroll modal text naturally
+    if (usePortfolioStore.getState().activeModal) return;
+    if (e.touches.length !== 1) return;
+
+    const touch = e.touches[0];
+    this.isTouching = true;
+    this.isTouchDrag = false;
+    this.touchStartX = touch.clientX;
+    this.touchStartY = touch.clientY;
+    this.touchLastY = touch.clientY;
+    this.touchStartTime = performance.now();
+    this.lastTouchMoveTime = this.touchStartTime;
+    this.touchVelocityY = 0;
+    this.touchProgressStart = usePortfolioStore.getState().scrollProgress;
+
+    // Update pointer coordinates immediately so tap raycasting knows the exact position
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    this.pointer.x = ((touch.clientX - rect.left) / rect.width) * 2 - 1;
+    this.pointer.y = -((touch.clientY - rect.top) / rect.height) * 2 + 1;
+  };
+
+  private onTouchMove = (e: TouchEvent) => {
+    if (usePortfolioStore.getState().activeModal) return;
+    if (!this.isTouching || e.touches.length !== 1) return;
+
+    const touch = e.touches[0];
+    const deltaX = touch.clientX - this.touchStartX;
+    const deltaY = this.touchStartY - touch.clientY; // swipe up = positive = move forward
+    const dist = Math.hypot(deltaX, touch.clientY - this.touchStartY);
+
+    if (dist > 8) {
+      this.isTouchDrag = true;
+    }
+
+    if (this.isTouchDrag) {
+      // Prevent browser default pull-to-refresh and window bouncing
+      if (e.cancelable) e.preventDefault();
+
+      const now = performance.now();
+      const dt = Math.max(1, now - this.lastTouchMoveTime);
+      this.touchVelocityY = (this.touchLastY - touch.clientY) / dt;
+      this.lastTouchMoveTime = now;
+      this.touchLastY = touch.clientY;
+
+      // Sensitivity: 240px vertical drag advances 1 full station smoothly
+      const progressDelta = deltaY / 240;
+      const target = Math.max(0, Math.min(5, this.touchProgressStart + progressDelta));
+      usePortfolioStore.getState().setScrollProgress(target);
+
+      // Subtle parallax on mobile drag
+      this.mouseOffset.x = (touch.clientX / window.innerWidth) * 2 - 1;
+      this.mouseOffset.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+    }
+  };
+
+  private onTouchEnd = (_e: TouchEvent) => {
+    if (usePortfolioStore.getState().activeModal) {
+      this.isTouching = false;
+      return;
+    }
+    if (!this.isTouching) return;
+    this.isTouching = false;
+
+    const now = performance.now();
+    const touchDuration = now - this.touchStartTime;
+
+    if (!this.isTouchDrag && touchDuration < 350) {
+      // Clean tap! Trigger 3D raycast interaction at tapped coordinate
+      this.triggerInteractionAt(this.pointer);
+    } else if (this.isTouchDrag) {
+      // Swipe with velocity: check if user flicked up or down
+      const current = usePortfolioStore.getState().scrollProgress;
+      if (this.touchVelocityY > 0.45) {
+        // Flicked UP -> advance to next station
+        const nextStation = Math.min(5, Math.floor(current + 1));
+        usePortfolioStore.getState().setScrollProgress(nextStation);
+      } else if (this.touchVelocityY < -0.45) {
+        // Flicked DOWN -> back to previous station
+        const prevStation = Math.max(0, Math.ceil(current - 1));
+        usePortfolioStore.getState().setScrollProgress(prevStation);
+      } else {
+        // Snap gently to nearest station if close
+        const nearest = Math.round(current);
+        if (Math.abs(current - nearest) < 0.28) {
+          usePortfolioStore.getState().setScrollProgress(nearest);
+        }
+      }
+    }
+  };
+
+  private onTouchCancel = () => {
+    this.isTouching = false;
+    this.isTouchDrag = false;
   };
 
   private onPointerMove = (e: PointerEvent) => {
@@ -132,11 +264,10 @@ export class StudioScene {
     usePortfolioStore.getState().setHoveredObject(null);
   }
 
-  private onClick = (e: MouseEvent) => {
-    // If a modal is open, let standard DOM events handle it
+  private triggerInteractionAt(coords: THREE.Vector2) {
     if (usePortfolioStore.getState().activeModal) return;
 
-    this.raycaster.setFromCamera(this.pointer, this.camera);
+    this.raycaster.setFromCamera(coords, this.camera);
 
     const interactiveList = [
       ...this.room.interactiveObjects,
@@ -189,6 +320,10 @@ export class StudioScene {
         }
       }
     }
+  }
+
+  private onClick = (_e: MouseEvent) => {
+    this.triggerInteractionAt(this.pointer);
   };
 
   private onWheel = (e: WheelEvent) => {
@@ -243,6 +378,11 @@ export class StudioScene {
     window.removeEventListener('pointermove', this.onPointerMove);
     window.removeEventListener('click', this.onClick);
     window.removeEventListener('wheel', this.onWheel);
+
+    this.container.removeEventListener('touchstart', this.onTouchStart);
+    window.removeEventListener('touchmove', this.onTouchMove);
+    window.removeEventListener('touchend', this.onTouchEnd);
+    window.removeEventListener('touchcancel', this.onTouchCancel);
 
     // Traverse and dispose geometries and materials
     this.scene.traverse((obj) => {
