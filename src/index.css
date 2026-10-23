@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-paper: #FCF9F5;
+  --color-ink: #14303F;
+  --color-hoodie: #E45C4C;
+  --color-cheese: #FFD166;
+  --color-mint: #06D6A0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Custom Comic Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #F2EBE1;
+  border-left: 2px solid #14303F;
+}
+::-webkit-scrollbar-thumb {
+  background: #E45C4C;
+  border: 2px solid #14303F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #C73F2F;
+}
+
+/* Line-art comic border utility classes */
+.border-ink {
+  border-color: #14303F;
+}
+
+.shadow-comic {
+  box-shadow: 4px 4px 0px #14303F;
+}
+
+.shadow-comic-lg {
+  box-shadow: 6px 6px 0px #14303F;
+}
+
+.shadow-comic-sm {
+  box-shadow: 2px 2px 0px #14303F;
+}
+
+.shadow-comic-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #14303F;
+}
+
+.shadow-comic-active:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #14303F;
+}
