@@ -5,6 +5,7 @@ import { FallbackHero } from './FallbackHero';
 export const CanvasContainer: React.FC = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<StudioScene | null>(null);
+  const [initFailed, setInitFailed] = useState(false);
 
   const [hasWebGL] = useState<boolean>(() => {
     if (typeof window === 'undefined') return true;
@@ -23,16 +24,23 @@ export const CanvasContainer: React.FC = () => {
   useEffect(() => {
     if (!hasWebGL || !mountRef.current) return;
 
-    const scene = new StudioScene(mountRef.current);
-    sceneRef.current = scene;
+    try {
+      const scene = new StudioScene(mountRef.current);
+      sceneRef.current = scene;
+    } catch (err) {
+      console.error('Failed to initialize 3D StudioScene:', err);
+      setInitFailed(true);
+    }
 
     return () => {
-      scene.dispose();
-      sceneRef.current = null;
+      if (sceneRef.current) {
+        sceneRef.current.dispose();
+        sceneRef.current = null;
+      }
     };
   }, [hasWebGL]);
 
-  if (!hasWebGL) {
+  if (!hasWebGL || initFailed) {
     return <FallbackHero />;
   }
 

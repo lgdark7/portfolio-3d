@@ -43,13 +43,10 @@ export class StudioScene {
     // 1. Scene
     this.scene = new THREE.Scene();
 
-    // 2. Camera with responsive FOV (portrait phones need wider vertical FOV)
     const width = container.clientWidth || window.innerWidth;
     const height = container.clientHeight || window.innerHeight;
-    this.camera = new THREE.PerspectiveCamera(44, width / height, 0.1, 40);
-    this.updateCameraProjection(width, height);
 
-    // 3. Renderer with high-performance settings
+    // 2. Renderer with high-performance settings (Initialized FIRST before projection update)
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       powerPreference: 'high-performance',
@@ -62,6 +59,10 @@ export class StudioScene {
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
     this.renderer.toneMappingExposure = 1.15;
     container.appendChild(this.renderer.domElement);
+
+    // 3. Camera with responsive FOV (portrait phones need wider vertical FOV)
+    this.camera = new THREE.PerspectiveCamera(44, width / height, 0.1, 40);
+    this.updateCameraProjection(width, height);
 
     // 4. Build 3D Entities
     this.lighting = new LightingSystem(this.scene);
@@ -89,6 +90,7 @@ export class StudioScene {
   }
 
   private updateCameraProjection(width: number, height: number) {
+    if (!this.camera) return;
     const aspect = width / height;
     this.camera.aspect = aspect;
 
@@ -106,7 +108,9 @@ export class StudioScene {
     }
 
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
+    if (this.renderer) {
+      this.renderer.setSize(width, height);
+    }
   }
 
   private bindEvents() {
