@@ -10,6 +10,7 @@ export const ArchiveContactModal: React.FC = () => {
   const [guestMessage, setGuestMessage] = useState('');
   const [guestName, setGuestName] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [transmitted, setTransmitted] = useState(false);
 
   const copyDiscord = () => {
     navigator.clipboard.writeText(BENHIN_PROFILE.discordUrl);
@@ -23,16 +24,24 @@ export const ArchiveContactModal: React.FC = () => {
     setTimeout(() => setCopiedGuns(false), 2000);
   };
 
+  const sanitizeInput = (val: string, maxLen = 300) => {
+    return val.replace(/[<>'"]/g, '').trim().slice(0, maxLen);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!guestMessage.trim()) return;
+    const cleanMsg = sanitizeInput(guestMessage, 500);
+    const cleanName = sanitizeInput(guestName, 60);
+    if (!cleanMsg) return;
+
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
+      setTransmitted(true);
       setGuestMessage('');
       setGuestName('');
-      alert('Thanks for leaving a packet in Benhin\'s systems guestbook!');
-    }, 1200);
+      setTimeout(() => setTransmitted(false), 4000);
+    }, 900);
   };
 
   const releases = [
@@ -117,10 +126,17 @@ export const ArchiveContactModal: React.FC = () => {
                   />
                 </div>
 
+                {transmitted && (
+                  <div className="p-2.5 rounded-xl border border-emerald-400 bg-emerald-50 text-emerald-800 font-mono font-bold text-xs flex items-center gap-2 animate-fadeIn">
+                    <Check className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+                    <span>Packet safely logged to Benhin's systems terminal!</span>
+                  </div>
+                )}
+
                 <button
                   type="submit"
                   disabled={submitted}
-                  className="w-full py-2.5 rounded-xl border-2 border-ink bg-sky-500 text-white font-mono font-bold text-xs shadow-comic-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full py-2.5 rounded-xl border-2 border-ink bg-sky-500 text-white font-mono font-bold text-xs shadow-comic-sm hover:bg-sky-600 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
                 >
                   <Send className="w-3.5 h-3.5" />
                   <span>{submitted ? 'TRANSMITTING PACKET...' : 'TRANSMIT MESSAGE'}</span>
@@ -149,7 +165,7 @@ export const ArchiveContactModal: React.FC = () => {
                     <a
                       href={BENHIN_PROFILE.discordUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="px-2.5 py-1 rounded-lg border border-ink bg-[#5865f2] text-white font-mono font-bold text-[11px] shadow-comic-sm"
                     >
                       JOIN ↗
@@ -177,7 +193,7 @@ export const ArchiveContactModal: React.FC = () => {
                     <a
                       href={BENHIN_PROFILE.gunslolUrl}
                       target="_blank"
-                      rel="noreferrer"
+                      rel="noopener noreferrer"
                       className="px-2.5 py-1 rounded-lg border border-ink bg-[#f43f5e] text-white font-mono font-bold text-[11px] shadow-comic-sm"
                     >
                       VISIT ↗
@@ -196,7 +212,7 @@ export const ArchiveContactModal: React.FC = () => {
                 <a
                   href={BENHIN_PROFILE.githubUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 p-2.5 rounded-xl border-2 border-ink bg-paper hover:bg-paper-dark text-xs font-mono font-bold text-ink shadow-comic-sm"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -207,7 +223,7 @@ export const ArchiveContactModal: React.FC = () => {
                 <a
                   href={BENHIN_PROFILE.discordUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-2 p-2.5 rounded-xl border-2 border-ink bg-paper hover:bg-paper-dark text-xs font-mono font-bold text-ink shadow-comic-sm"
                 >
                   <Radio className="w-4 h-4 text-[#5865f2]" />
@@ -235,7 +251,7 @@ export const ArchiveContactModal: React.FC = () => {
                     key={rel.name}
                     href={rel.link}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className="flex flex-col p-3 rounded-xl border-2 border-ink bg-paper hover:bg-cheese transition-colors text-xs font-mono group"
                   >
                     <div className="flex items-center justify-between mb-1">

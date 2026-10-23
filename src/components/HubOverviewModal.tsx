@@ -127,7 +127,7 @@ export const HubOverviewModal: React.FC = () => {
                 <a
                   href="https://github.com/lgdark7/FairyLive"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border-2 border-ink bg-cheese hover:bg-cheese-dark text-ink font-mono font-bold text-xs shadow-comic-sm"
                 >
                   <span>View Repository</span>
@@ -157,7 +157,7 @@ export const HubOverviewModal: React.FC = () => {
                 <a
                   href="https://github.com/lgdark7/FAIRY-MUSIC"
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="flex-1 flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl border-2 border-ink bg-sky-400 hover:bg-sky-500 text-white font-mono font-bold text-xs shadow-comic-sm"
                 >
                   <span>View Repository</span>
@@ -200,7 +200,7 @@ export const HubOverviewModal: React.FC = () => {
               <a
                 href={BENHIN_PROFILE.discordUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl border-2 border-ink bg-[#5865f2] text-white font-mono font-bold text-xs shadow-comic-sm hover:opacity-90"
               >
                 <span>Discord Community</span>
@@ -210,7 +210,7 @@ export const HubOverviewModal: React.FC = () => {
               <a
                 href={BENHIN_PROFILE.gunslolUrl}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl border-2 border-ink bg-[#f43f5e] text-white font-mono font-bold text-xs shadow-comic-sm hover:opacity-90"
               >
                 <span>guns.lol/lg_dark</span>

@@ -184,7 +184,7 @@ export const AboutModal: React.FC = () => {
                 <a
                   href={BENHIN_PROFILE.githubUrl}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="px-6 py-2.5 rounded-xl border-2 border-ink bg-ink text-white font-mono font-bold text-xs shadow-comic hover:bg-sky-600 transition-colors flex-shrink-0 flex items-center gap-2"
                 >
                   <span>GITHUB PROFILE ↗</span>

@@ -70,7 +70,7 @@ export const SpatialHUD: React.FC = () => {
             <a
               href={BENHIN_PROFILE.githubUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-xs font-mono font-bold text-ink hover:text-sky-600 flex items-center gap-1"
             >
               <span>GitHub</span>
@@ -80,7 +80,7 @@ export const SpatialHUD: React.FC = () => {
             <a
               href={BENHIN_PROFILE.discordUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-xs font-mono font-bold text-ink hover:text-[#5865f2] flex items-center gap-1"
             >
               <span>Discord</span>
